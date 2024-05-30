@@ -31,4 +31,36 @@ class Game {
       this.ctx.restore();
     };
   }
+  /**
+   *
+   * @param {Array<{tileNumber: number; X: number; Y: number; direction:number;}>} tiles An array of object including the number of the tile, its coords and its direction
+   * @returns {Array<{tileNumber: number; X: number; Y: number; direction: number;}>} The shuffled array given for input
+   */
+  #swapTiles(tiles) {
+    // Code from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    let currentIndex = tiles.length;
+    while (currentIndex != 0) {
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [tiles[currentIndex], tiles[randomIndex]] = [
+        tiles[randomIndex],
+        tiles[currentIndex],
+      ];
+    }
+    return tiles;
+  }
+
+  initTiles(tilesArray) {
+    const swappedTiles = this.#swapTiles(tilesArray)
+    const stacksNumber = Math.floor(swappedTiles.length / 12)
+    const tilesToStack = swappedTiles.splice(0, (swappedTiles.length-1) - (swappedTiles.length - (swappedTiles.length - stacksNumber * 12)))
+    const tiles = [];
+    for (let i = 0; i < tilesToStack.length; i+=stacksNumber) {
+      const element = tilesToStack[i];
+      for (let j = 0; j < stacksNumber; j++) {
+        const element = array[j];
+        
+      }
+    }
+  }
 }
