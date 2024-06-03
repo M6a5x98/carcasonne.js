@@ -5,6 +5,6 @@ Import this script in your HTML page. Create an instance of the Game class, then
 ## ToDo
 - Place Tile : ✅
 - Scoreboard : ❌
-- Random Tiles : ❌
+- Random Tiles : ✅ but not tested
 - Multiplayer : ❌
 - Mepple placing : ❌
