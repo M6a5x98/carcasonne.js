@@ -51,16 +51,25 @@ class Game {
   }
 
   initTiles(tilesArray) {
-    const swappedTiles = this.#swapTiles(tilesArray)
-    const stacksNumber = Math.floor(swappedTiles.length / 12)
-    const tilesToStack = swappedTiles.splice(0, (swappedTiles.length-1) - (swappedTiles.length - (swappedTiles.length - stacksNumber * 12)))
+    const swappedTiles = this.#swapTiles(tilesArray);
+    const stacksNumber = Math.floor(swappedTiles.length / 12);
+    const stackingEndIndex =
+      swappedTiles.length -
+      1 -
+      (swappedTiles.length - (swappedTiles.length - stacksNumber * 12));
+    const tilesToStack = swappedTiles.splice(0, stackingEndIndex);
+    const remainingTiles = swappedTiles.splice(stackingEndIndex);
     const tiles = [];
-    for (let i = 0; i < tilesToStack.length; i+=stacksNumber) {
-      const element = tilesToStack[i];
-      for (let j = 0; j < stacksNumber; j++) {
-        const element = array[j];
-        
+    for (let i = 0; i < tilesToStack.length; i += 12) {
+      const tileStack = [];
+      for (let j = 0; j < 12; j++) {
+        tileStack.push(tilesToStack[j]);
       }
+      tiles.push(tileStack);
     }
+    for (let i = 0; i < remainingTiles.length; i++) {
+      tiles[i]["push"](remainingTiles[i]);
+    }
+    this.tiles = tiles;
   }
 }
