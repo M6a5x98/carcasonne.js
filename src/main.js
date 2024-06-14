@@ -15,7 +15,7 @@ export class Game {
    */
   placeTile(tile) {
     const mappedTile = new Image(102, 102);
-    mappedTile.src = "./" + tile["tileNumber"] + ".png";
+    mappedTile.src = "../img/" + tile["tileNumber"] + ".png";
     mappedTile.onload = () => {
       this.ctx.save();
       this.ctx.translate(
