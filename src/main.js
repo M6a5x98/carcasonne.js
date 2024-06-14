@@ -1,4 +1,4 @@
-class Game {
+export class Game {
   /**
    *
    * @param {HTMLCanvasElement} canvas The canvas
@@ -15,7 +15,7 @@ class Game {
    */
   placeTile(tile) {
     const mappedTile = new Image(102, 102);
-    mappedTile.src = "../img/" + tile["tileNumber"] + ".png";
+    mappedTile.src = "./" + tile["tileNumber"] + ".png";
     mappedTile.onload = () => {
       this.ctx.save();
       this.ctx.translate(
@@ -49,27 +49,26 @@ class Game {
     }
     return tiles;
   }
-
+  /**
+   *
+   * @param {Array<{tileNumber: number; X: number; Y: number; direction:number;}>} tilesArray An array of object including the number of the tile, its coords and its direction
+   */
   initTiles(tilesArray) {
     const swappedTiles = this.#swapTiles(tilesArray);
     const stacksNumber = Math.floor(swappedTiles.length / 12);
     const stackingEndIndex =
-      swappedTiles.length -
-      1 -
-      (swappedTiles.length - (swappedTiles.length - stacksNumber * 12));
+      swappedTiles.length - (swappedTiles.length - 1 - stacksNumber * 12) - 1;
     const tilesToStack = swappedTiles.splice(0, stackingEndIndex);
-    const remainingTiles = swappedTiles.splice(stackingEndIndex);
     const tiles = [];
     for (let i = 0; i < tilesToStack.length; i += 12) {
       const tileStack = [];
       for (let j = 0; j < 12; j++) {
-        tileStack.push(tilesToStack[j]);
+        tileStack.push(tilesToStack[i + j]);
       }
       tiles.push(tileStack);
     }
-    for (let i = 0; i < remainingTiles.length; i++) {
-      tiles[i]["push"](remainingTiles[i]);
-    }
+    const remainingTiles = swappedTiles.splice(0);
+    tiles.push(remainingTiles);
     this.tiles = tiles;
   }
 }
